@@ -23,9 +23,9 @@
   fieldset { border: 0; padding: 0; margin: 0 0 22px; }
   legend { padding: 0; margin-bottom: 8px; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
   label.sub { display: block; font-size: 14px; margin: 8px 0 3px; }
-  input[type=text], textarea, select { width: 100%; font: inherit; color: inherit; background: #fff;
+  input[type=text], input[type=date], textarea, select { width: 100%; font: inherit; color: inherit; background: #fff;
          padding: 8px 10px; border: 1px solid var(--um-piedra); border-radius: 0; }
-  input[type=text]:focus, textarea:focus, select:focus { outline: 2px solid var(--um-oscuro); outline-offset: -1px; border-color: var(--um-oscuro); }
+  input[type=text]:focus, input[type=date]:focus, textarea:focus, select:focus { outline: 2px solid var(--um-oscuro); outline-offset: -1px; border-color: var(--um-oscuro); }
   textarea { resize: vertical; min-height: 84px; }
   .persona { display: grid; grid-template-columns: 76px 1fr 1fr; gap: 8px; }
   .persona + .persona { margin-top: 8px; }
@@ -57,77 +57,87 @@
 <div class="contenedor">
   <form id="f" autocomplete="off" novalidate>
     <fieldset>
-      <legend>Idioma de redacción de la tesis</legend>
-      <label class="opcion"><input type="radio" name="modelo" value="castellano" checked> Castellano</label>
-      <label class="opcion"><input type="radio" name="modelo" value="otro"> Otro idioma (incluido el inglés)</label>
+      <legend data-t="idiomaRed">Idioma de redacción de la tesis</legend>
+      <label class="opcion"><input type="radio" name="modelo" value="castellano" checked> <span data-t="castellano">Castellano</span></label>
+      <label class="opcion"><input type="radio" name="modelo" value="otro"> <span data-t="otroIdioma">Otro idioma (incluido el inglés)</span></label>
     </fieldset>
 
     <fieldset>
       <legend><label for="titulo" id="etqTitulo">Título de la tesis</label></legend>
       <textarea id="titulo" required></textarea>
-      <div class="ayuda">Se ajusta solo en varias líneas. Puede forzar un salto de línea con Intro.</div>
+      <div class="ayuda" data-t="ayudaTitulo">Se ajusta solo en varias líneas. Puede forzar un salto de línea con Intro.</div>
     </fieldset>
 
     <fieldset id="bloqueTitulo2" hidden>
-      <legend><label for="titulo2">Título en el idioma de redacción</label></legend>
+      <legend><label for="titulo2" data-t="titulo2">Título en el idioma de redacción</label></legend>
       <textarea id="titulo2"></textarea>
-      <div class="ayuda">Aparece en cursiva, en la columna izquierda del bloque inferior de la portada.</div>
+      <div class="ayuda" data-t="ayudaTitulo2">Aparece en cursiva, en la columna izquierda del bloque inferior de la portada.</div>
     </fieldset>
 
     <fieldset>
-      <legend>Doctorando/a</legend>
+      <legend data-t="doctorando">Doctorando/a</legend>
       <div class="persona" data-persona="autor">
-        <select aria-label="Tratamiento"><option value="">—</option><option>D.</option><option>Dª</option></select>
-        <input type="text" class="nombre" placeholder="Nombre" aria-label="Nombre" required>
-        <input type="text" class="apellidos" placeholder="Apellidos" aria-label="Apellidos" required>
+        <select aria-label="Tratamiento" data-t-al="tratamiento"><option value="">—</option><option>D.</option><option>Dª</option></select>
+        <input type="text" class="nombre" placeholder="Nombre" aria-label="Nombre" data-t-ph="nombre" data-t-al="nombre" required>
+        <input type="text" class="apellidos" placeholder="Apellidos" aria-label="Apellidos" data-t-ph="apellidos" data-t-al="apellidos" required>
       </div>
       <div class="fila" style="margin-top:8px">
         <div>
-          <label class="sub" for="etiquetaAutor">Etiqueta en la portada</label>
+          <label class="sub" for="etiquetaAutor" data-t="etiqueta">Etiqueta en la portada</label>
           <select id="etiquetaAutor"><option>AUTOR</option><option>AUTORA</option><option selected>AUTOR/A</option></select>
         </div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>Dirección de la tesis</legend>
+      <legend data-t="direccion">Dirección de la tesis</legend>
       <div class="persona" data-persona="dir">
-        <select aria-label="Tratamiento"><option value="">—</option><option>D.</option><option>Dª</option></select>
-        <input type="text" class="nombre" placeholder="Nombre" aria-label="Nombre (director/a 1)" required>
-        <input type="text" class="apellidos" placeholder="Apellidos" aria-label="Apellidos (director/a 1)" required>
+        <select aria-label="Tratamiento" data-t-al="tratamiento"><option value="">—</option><option>D.</option><option>Dª</option></select>
+        <input type="text" class="nombre" placeholder="Nombre" aria-label="Nombre (director/a 1)" data-t-ph="nombre" data-t-al="nombreDir1" required>
+        <input type="text" class="apellidos" placeholder="Apellidos" aria-label="Apellidos (director/a 1)" data-t-ph="apellidos" data-t-al="apellidosDir1" required>
       </div>
       <div class="persona" data-persona="dir">
-        <select aria-label="Tratamiento"><option value="">—</option><option>D.</option><option>Dª</option></select>
-        <input type="text" class="nombre" placeholder="Nombre (opcional)" aria-label="Nombre (director/a 2)">
-        <input type="text" class="apellidos" placeholder="Apellidos" aria-label="Apellidos (director/a 2)">
+        <select aria-label="Tratamiento" data-t-al="tratamiento"><option value="">—</option><option>D.</option><option>Dª</option></select>
+        <input type="text" class="nombre" placeholder="Nombre (opcional)" aria-label="Nombre (director/a 2)" data-t-ph="nombreOpc" data-t-al="nombreDir2">
+        <input type="text" class="apellidos" placeholder="Apellidos" aria-label="Apellidos (director/a 2)" data-t-ph="apellidos" data-t-al="apellidosDir2">
       </div>
       <div class="persona" data-persona="dir">
-        <select aria-label="Tratamiento"><option value="">—</option><option>D.</option><option>Dª</option></select>
-        <input type="text" class="nombre" placeholder="Nombre (opcional)" aria-label="Nombre (director/a 3)">
-        <input type="text" class="apellidos" placeholder="Apellidos" aria-label="Apellidos (director/a 3)">
+        <select aria-label="Tratamiento" data-t-al="tratamiento"><option value="">—</option><option>D.</option><option>Dª</option></select>
+        <input type="text" class="nombre" placeholder="Nombre (opcional)" aria-label="Nombre (director/a 3)" data-t-ph="nombreOpc" data-t-al="nombreDir3">
+        <input type="text" class="apellidos" placeholder="Apellidos" aria-label="Apellidos (director/a 3)" data-t-ph="apellidos" data-t-al="apellidosDir3">
       </div>
-      <div class="ayuda">Nombres y apellidos completos de todas las personas que dirigen la tesis (nunca el tutor/a). Si se usa tratamiento, solo «D.» o «Dª».</div>
+      <div class="ayuda" data-t="ayudaDir">Nombres y apellidos completos de todas las personas que dirigen la tesis (nunca el tutor/a). Si se usa tratamiento, solo «D.» o «Dª».</div>
       <div class="fila" style="margin-top:8px">
         <div>
-          <label class="sub" for="etiquetaDirector">Etiqueta en la portada</label>
+          <label class="sub" for="etiquetaDirector" data-t="etiqueta">Etiqueta en la portada</label>
           <select id="etiquetaDirector"><option>DIRECTOR</option><option>DIRECTORA</option><option>DIRECTORES</option><option>DIRECTORAS</option><option selected>DIRECTOR/ES</option></select>
         </div>
         <div style="flex:0 0 110px">
-          <label class="sub" for="anio">Año</label>
+          <label class="sub" for="anio" data-t="anio">Año</label>
           <input type="text" id="anio" maxlength="4" inputmode="numeric" pattern="[0-9]{4}" required>
         </div>
       </div>
     </fieldset>
 
+    <fieldset>
+      <legend data-t="confLeyenda">Confidencialidad</legend>
+      <label class="opcion"><input type="checkbox" id="confidencial"> <span data-t="confCheck">Tesis sometida a confidencialidad (circunstancias excepcionales)</span></label>
+      <div id="bloqueFecha" hidden>
+        <label class="sub" for="fechaConf" data-t="confFecha">Fecha de autorización de la Comisión Académica de la EIDUM</label>
+        <input type="date" id="fechaConf" style="max-width:200px">
+        <div class="ayuda" data-t="confAyuda">Se añade en la portada, bajo el logotipo, el texto obligatorio de protección o transferencia de tecnología o de conocimiento con esta fecha.</div>
+      </div>
+    </fieldset>
+
     <div class="botones">
-      <button type="submit" class="principal" id="descargar">Descargar PDF</button>
-      <button type="button" id="ver">Vista previa</button>
+      <button type="submit" class="principal" id="descargar" data-t="descargar">Descargar PDF</button>
+      <button type="button" id="ver" data-t="ver">Vista previa</button>
     </div>
     <div id="aviso" role="status" aria-live="polite"></div>
   </form>
 
   <div class="vista">
-    <div class="vacio" id="vacio">La vista previa de la portada (4 páginas) aparecerá aquí.</div>
+    <div class="vacio" id="vacio" data-t="vacio">La vista previa de la portada (4 páginas) aparecerá aquí.</div>
     <iframe id="previa" title="Vista previa de la portada" hidden></iframe>
   </div>
 </div>
@@ -161,9 +171,9 @@
 
   // Geometría derivada de la plantilla Portada_Castellano 4.docx
   var PAGINAS = [
-    { idx: 0, color: 'claro', xLabel: 48.05, xName: 131.7, wTitle: 499.5, wAuthor: 415.8, wDir: 339.2,
+    { idx: 0, color: 'claro', wm: [295.5, 543.0, 116.5], xLabel: 48.05, xName: 131.7, wTitle: 499.5, wAuthor: 415.8, wDir: 339.2,
       title: { lead: 28.6, minH: 71.55, gapBelow: 36.45, ascent: 22.55, tesisAbove: 9.3, mode: 'row' } },
-    { idx: 2, color: 'oscuro', xLabel: 48.0, xName: 129.1, wTitle: 499.5, wAuthor: 418.4, wDir: 328.6,
+    { idx: 2, color: 'oscuro', wm: [302.5, 541.0, 113.0], xLabel: 48.0, xName: 129.1, wTitle: 499.5, wAuthor: 418.4, wDir: 328.6,
       title: { lead: 33, gapBelow: 35.5, tesisAbove: 35.7, mode: 'exact' } }
   ];
   var Y_BOTTOM = 803.65;   // línea base virtual bajo la fila de directores
@@ -177,7 +187,7 @@
     var out = [];
     String(text).split(/\n/).forEach(function (para) {
       var piezas = [];
-      para.trim().split(/\s+/).filter(Boolean).forEach(function (w) {
+      para.trim().split(/[ \t\r]+/).filter(Boolean).forEach(function (w) {
         (w.match(/[^-]+-*|-+/g) || [w]).forEach(function (t, i) { piezas.push({ t: t, sep: i === 0 ? ' ' : '' }); });
       });
       var line = '';
@@ -243,8 +253,10 @@
     var pages = doc.getPages(), minY = PAGE_H;
     (otro ? PAGINAS_IDIOMA : PAGINAS).forEach(function (pg) {
       var page = pages[pg.idx], c = COLOR[pg.color];
-      (otro ? layoutIdioma : layout)(pg, datos, F).forEach(function (it) {
-        minY = Math.min(minY, it.y - it.size);
+      var items = (otro ? layoutIdioma : layout)(pg, datos, F);
+      if (datos.fechaConfidencial) items = items.concat(layoutConfidencial(pg, datos, F));
+      items.forEach(function (it) {
+        if (!it.fijo) minY = Math.min(minY, it.y - it.size);
         page.drawText(it.text, { x: it.x, y: PAGE_H - it.y, size: it.size, font: F[it.font], color: PDFLib.rgb(c[0], c[1], c[2]) });
       });
     });
@@ -261,10 +273,10 @@
   // ---- Modelo «otro idioma» (Portada_Otro_idioma 2.docx) ----
   // Bloque inferior en 4 columnas: [título en otra lengua | etiqueta | nombres | año]
   var PAGINAS_IDIOMA = [
-    { idx: 0, color: 'claro', xLeft: 48.05, xLabel: 237.75, xName: 299.4, xYearRight: 547.55,
+    { idx: 0, color: 'claro', wm: [287.5, 532.5, 115.5], xLeft: 48.05, xLabel: 237.75, xName: 299.4, xYearRight: 547.55,
       wTitle: 499.5, wTitle2: 178.4, wName: 171.9, title: { minH: 71.55, mode: 'row' } },
     // Tabla al 101,4 % del ancho de texto, centrada en la página (como la maqueta en Word)
-    { idx: 2, color: 'oscuro', xLeft: 44.33, xLabel: 241.18, xName: 302.83, xYearRight: 550.98,
+    { idx: 2, color: 'oscuro', wm: [302.5, 537.0, 98.0], xLeft: 44.33, xLabel: 241.18, xName: 302.83, xYearRight: 550.98,
       wTitle: 506.65, wTitle2: 185.5, wName: 165.45, title: { mode: 'exact' } }
   ];
   var I = { lead: 15, labelRow: 19.4, labelDy: -0.8, tLead: 33, tGap: 10.05, tGapExact: 35.5, tesisAbove: 35.7,
@@ -297,7 +309,23 @@
     return items;
   }
 
-  var api = { generar: generar, layout: layout, layoutIdioma: layoutIdioma, PAGINAS: PAGINAS, PAGINAS_IDIOMA: PAGINAS_IDIOMA };
+  // ---- Tesis con confidencialidad (circunstancias excepcionales) ----
+  // Texto bajo el logotipo «Universidad de Murcia · Escuela de Doctorado», alineado con él
+  // wm = [x izquierda, x derecha, y inferior] del logotipo en cada página
+  var CONF = { size: 11, lead: 15, gap: 37 };
+  function textoConfidencial(fecha) {
+    return 'Esta tesis doctoral está sometida a procesos de protección o transferencia de tecnología o de conocimiento, ' +
+      'por lo que los siguientes contenidos están inhibidos en la publicación en los repositorios institucionales. ' +
+      'Autorizado por la Comisión Académica de la EIDUM con\u00a0fecha\u00a0' + fecha + '.';
+  }
+  function layoutConfidencial(pg, datos, F) {
+    var x = pg.wm[0], w = pg.wm[1] - pg.wm[0], y0 = pg.wm[2] + CONF.gap;
+    return wrap(textoConfidencial(datos.fechaConfidencial), F.reg, CONF.size, w).map(function (l, i) {
+      return { text: l, x: x, y: y0 + CONF.lead * i, size: CONF.size, font: 'reg', fijo: true };
+    });
+  }
+
+  var api = { textoConfidencial: textoConfidencial, generar: generar, layout: layout, layoutIdioma: layoutIdioma, PAGINAS: PAGINAS, PAGINAS_IDIOMA: PAGINAS_IDIOMA };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.PortadaEIDUM = api;
 })(this);
 </script>
@@ -316,6 +344,68 @@
   try { var ff = new FontFace('IBM Plex Sans', RECURSOS.plexRegular.slice().buffer); ff.load().then(function (f) { document.fonts.add(f); }); } catch (e) {}
 
   var $ = function (id) { return document.getElementById(id); };
+
+  // ---- Idioma de la interfaz: ?lang=en para la versión inglesa de la web ----
+  // El PDF no cambia: la portada oficial es la misma para ambas versiones de la web.
+  var TXT = {
+    es: {
+      _title: 'Generador de portada de tesis doctoral – Escuela Internacional de Doctorado',
+      idiomaRed: 'Idioma de redacción de la tesis', castellano: 'Castellano', otroIdioma: 'Otro idioma (incluido el inglés)',
+      titulo: 'Título de la tesis', tituloEs: 'Título en español', titulo2: 'Título en el idioma de redacción',
+      ayudaTitulo: 'Se ajusta solo en varias líneas. Puede forzar un salto de línea con Intro.',
+      ayudaTitulo2: 'Aparece en cursiva, en la columna izquierda del bloque inferior de la portada.',
+      doctorando: 'Doctorando/a', direccion: 'Dirección de la tesis',
+      ayudaDir: 'Nombres y apellidos completos de todas las personas que dirigen la tesis (nunca el tutor/a). Si se usa tratamiento, solo «D.» o «Dª».',
+      etiqueta: 'Etiqueta en la portada', anio: 'Año', descargar: 'Descargar PDF', ver: 'Vista previa',
+      vacio: 'La vista previa de la portada (4 páginas) aparecerá aquí.', previaTitulo: 'Vista previa de la portada',
+      tratamiento: 'Tratamiento', nombre: 'Nombre', apellidos: 'Apellidos', nombreOpc: 'Nombre (opcional)',
+      nombreDir1: 'Nombre (director/a 1)', apellidosDir1: 'Apellidos (director/a 1)', nombreDir2: 'Nombre (director/a 2)',
+      apellidosDir2: 'Apellidos (director/a 2)', nombreDir3: 'Nombre (director/a 3)', apellidosDir3: 'Apellidos (director/a 3)',
+      eTitulo: 'Falta el título.', eTituloEs: 'Falta el título en español.', eTitulo2: 'Falta el título en el idioma de redacción.',
+      eNombre: 'Falta el nombre del doctorando/a.', eApellidos: 'Faltan los apellidos del doctorando/a.',
+      eDir: 'Indique al menos un director/a.', eDirApe: 'Falta un apellido en la dirección.', eDirNom: 'Falta un nombre en la dirección.',
+      eAnio: 'El año debe tener 4 cifras.',
+      solapa: 'Atención: el título es muy largo y el texto se acerca al sello de la Universidad. Revise la vista previa.',
+      error: 'No se ha podido generar el PDF: ',
+      confLeyenda: 'Confidencialidad', confCheck: 'Tesis sometida a confidencialidad (circunstancias excepcionales)',
+      confFecha: 'Fecha de autorización de la Comisión Académica de la EIDUM',
+      confAyuda: 'Se añade en la portada, bajo el logotipo, el texto obligatorio de protección o transferencia de tecnología o de conocimiento con esta fecha.',
+      eFecha: 'Indique la fecha de autorización de la Comisión Académica.'
+    },
+    en: {
+      _title: 'Doctoral thesis cover generator – International School of Doctoral Studies',
+      idiomaRed: 'Language of the thesis', castellano: 'Spanish', otroIdioma: 'Another language (including English)',
+      titulo: 'Thesis title', tituloEs: 'Title in Spanish', titulo2: 'Title in the language of the thesis',
+      ayudaTitulo: 'Long titles wrap automatically. Press Enter to force a line break.',
+      ayudaTitulo2: 'Shown in italics in the left-hand column of the lower block of the cover.',
+      doctorando: 'Doctoral candidate', direccion: 'Thesis supervision',
+      ayudaDir: 'Full names of all thesis supervisors (never the tutor). If a title is used, only «D.» or «Dª» are allowed.',
+      etiqueta: 'Cover label (in Spanish)', anio: 'Year', descargar: 'Download PDF', ver: 'Preview',
+      vacio: 'The cover preview (4 pages) will appear here.', previaTitulo: 'Cover preview',
+      tratamiento: 'Title (D. / Dª)', nombre: 'First name', apellidos: 'Surnames', nombreOpc: 'Name (optional)',
+      nombreDir1: 'First name (supervisor 1)', apellidosDir1: 'Surnames (supervisor 1)', nombreDir2: 'First name (supervisor 2)',
+      apellidosDir2: 'Surnames (supervisor 2)', nombreDir3: 'First name (supervisor 3)', apellidosDir3: 'Surnames (supervisor 3)',
+      eTitulo: 'The title is missing.', eTituloEs: 'The Spanish title is missing.', eTitulo2: 'The title in the language of the thesis is missing.',
+      eNombre: 'The candidate\'s first name is missing.', eApellidos: 'The candidate\'s surnames are missing.',
+      eDir: 'Please enter at least one supervisor.', eDirApe: 'A supervisor\'s surnames are missing.', eDirNom: 'A supervisor\'s first name is missing.',
+      eAnio: 'The year must have 4 digits.',
+      solapa: 'Warning: the title is very long and the text comes close to the University seal. Please check the preview.',
+      error: 'The PDF could not be generated: ',
+      confLeyenda: 'Confidentiality', confCheck: 'Thesis subject to confidentiality (exceptional circumstances)',
+      confFecha: 'Date of authorisation by the EIDUM Academic Committee',
+      confAyuda: 'The mandatory statement on protection or transfer of technology or knowledge (in Spanish) is added to the cover, below the logo, with this date.',
+      eFecha: 'Please enter the date of authorisation by the Academic Committee.'
+    }
+  };
+  var LANG = /^en/i.test(new URLSearchParams(location.search).get('lang') || '') ? 'en' : 'es';
+  function T(k) { return TXT[LANG][k]; }
+  if (LANG === 'en') {
+    document.documentElement.lang = 'en';
+    document.title = T('_title');
+    document.querySelectorAll('[data-t]').forEach(function (e) { e.textContent = T(e.getAttribute('data-t')); });
+    document.querySelectorAll('[data-t-ph]').forEach(function (e) { e.placeholder = T(e.getAttribute('data-t-ph')); });
+    document.querySelectorAll('[data-t-al]').forEach(function (e) { e.setAttribute('aria-label', T(e.getAttribute('data-t-al'))); });
+  }
   $('anio').value = String(new Date().getFullYear());
   var urlPrevia = null;
   var limpio = function (s) { return s.replace(/\s+/g, ' ').trim(); };
@@ -329,27 +419,37 @@
   function cambiarModelo() {
     var otro = modelo() === 'otro';
     $('bloqueTitulo2').hidden = !otro;
-    $('etqTitulo').textContent = otro ? 'Título en español' : 'Título de la tesis';
+    $('etqTitulo').textContent = T(otro ? 'tituloEs' : 'titulo');
   }
   document.querySelectorAll('input[name=modelo]').forEach(function (r) { r.addEventListener('change', cambiarModelo); });
   cambiarModelo();
+
+  function cambiarConf() { $('bloqueFecha').hidden = !$('confidencial').checked; }
+  $('confidencial').addEventListener('change', cambiarConf);
+  cambiarConf();
+  function fechaConf() {
+    if (!$('confidencial').checked) return '';
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec($('fechaConf').value);
+    return m ? m[3] + '/' + m[2] + '/' + m[1] : '';
+  }
 
   function validar() {
     var f = $('f'), errores = [];
     f.querySelectorAll('[aria-invalid]').forEach(function (e) { e.removeAttribute('aria-invalid'); });
     function marca(el, msg) { el.setAttribute('aria-invalid', 'true'); if (errores.indexOf(msg) < 0) errores.push(msg); }
-    if (!limpio($('titulo').value)) marca($('titulo'), modelo() === 'otro' ? 'Falta el título en español.' : 'Falta el título.');
-    if (modelo() === 'otro' && !limpio($('titulo2').value)) marca($('titulo2'), 'Falta el título en el idioma de redacción.');
+    if (!limpio($('titulo').value)) marca($('titulo'), T(modelo() === 'otro' ? 'eTituloEs' : 'eTitulo'));
+    if (modelo() === 'otro' && !limpio($('titulo2').value)) marca($('titulo2'), T('eTitulo2'));
     var a = document.querySelector('[data-persona=autor]');
-    if (!persona(a).nombre) marca(a.querySelector('.nombre'), 'Falta el nombre del doctorando/a.');
-    if (!persona(a).apellidos) marca(a.querySelector('.apellidos'), 'Faltan los apellidos del doctorando/a.');
+    if (!persona(a).nombre) marca(a.querySelector('.nombre'), T('eNombre'));
+    if (!persona(a).apellidos) marca(a.querySelector('.apellidos'), T('eApellidos'));
     document.querySelectorAll('[data-persona=dir]').forEach(function (el, i) {
       var p = persona(el);
-      if (i === 0 && !p.nombre && !p.apellidos) { marca(el.querySelector('.nombre'), 'Indique al menos un director/a.'); return; }
-      if ((p.nombre || p.trat) && !p.apellidos) marca(el.querySelector('.apellidos'), 'Falta un apellido en la dirección.');
-      if (p.apellidos && !p.nombre) marca(el.querySelector('.nombre'), 'Falta un nombre en la dirección.');
+      if (i === 0 && !p.nombre && !p.apellidos) { marca(el.querySelector('.nombre'), T('eDir')); return; }
+      if ((p.nombre || p.trat) && !p.apellidos) marca(el.querySelector('.apellidos'), T('eDirApe'));
+      if (p.apellidos && !p.nombre) marca(el.querySelector('.nombre'), T('eDirNom'));
     });
-    if (!/^\d{4}$/.test($('anio').value.trim())) marca($('anio'), 'El año debe tener 4 cifras.');
+    if (!/^\d{4}$/.test($('anio').value.trim())) marca($('anio'), T('eAnio'));
+    if ($('confidencial').checked && !fechaConf()) marca($('fechaConf'), T('eFecha'));
     return errores;
   }
 
@@ -364,7 +464,8 @@
       etiquetaAutor: $('etiquetaAutor').value,
       directores: dirs.map(completo),
       etiquetaDirector: $('etiquetaDirector').value,
-      anio: $('anio').value.trim()
+      anio: $('anio').value.trim(),
+      fechaConfidencial: fechaConf()
     };
   }
 
@@ -383,11 +484,12 @@
     $('ver').disabled = $('descargar').disabled = true;
     try {
       var r = await PortadaEIDUM.generar(PDFLib, fontkit, RECURSOS, d);
-      if (r.solapa) $('aviso').textContent = 'Atención: el título es muy largo y el texto se acerca al sello de la Universidad. Revise la vista previa.';
+      if (r.solapa) $('aviso').textContent = T('solapa');
       var blob = new Blob([r.bytes], { type: 'application/pdf' });
       if (urlPrevia) URL.revokeObjectURL(urlPrevia);
       urlPrevia = URL.createObjectURL(blob);
       $('previa').src = urlPrevia + '#view=FitH';
+      $('previa').title = T('previaTitulo');
       $('previa').hidden = false; $('vacio').hidden = true;
       if (descargar) {
         var a = document.createElement('a');
@@ -395,7 +497,7 @@
         document.body.appendChild(a); a.click(); a.remove();
       }
     } catch (e) {
-      $('aviso').textContent = 'No se ha podido generar el PDF: ' + e.message;
+      $('aviso').textContent = T('error') + e.message;
     } finally {
       $('ver').disabled = $('descargar').disabled = false;
     }
